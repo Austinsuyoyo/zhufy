@@ -6,6 +6,15 @@
       <Sparkles class="w-6 h-6 text-blue-500" />
       <h1 class="text-xl font-bold tracking-wider hidden sm:block">長輩圖產生器</h1>
       <h1 class="text-xl font-bold tracking-wider sm:hidden">長輩圖</h1>
+      <a
+        href="https://github.com/austinsuyoyo"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="github-link text-gray-600 hover:text-gray-900 transition-colors"
+        aria-label="GitHub"
+      >
+        <Github class="w-5 h-5" />
+      </a>
     </div>
     <div class="flex items-center gap-4">
       <button
@@ -56,7 +65,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
-import { Sparkles, RefreshCw, Download, ChevronDown } from 'lucide-vue-next'
+import { Sparkles, RefreshCw, Download, ChevronDown, Github } from 'lucide-vue-next'
 import * as fabric from 'fabric'
 import { useEditorStore } from '../stores/editor'
 import { requestRender } from '../utils/renderManager'
@@ -132,3 +141,13 @@ onUnmounted(() => {
   document.removeEventListener('click', handleClickOutside)
 })
 </script>
+
+<style scoped>
+.github-link svg {
+  transition: transform 0.2s ease;
+}
+
+.github-link:hover svg {
+  transform: scale(1.1);
+}
+</style>
