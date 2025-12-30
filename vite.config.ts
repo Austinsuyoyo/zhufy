@@ -13,7 +13,7 @@ export default defineConfig({
     : process.env.VITE_BASE_PATH || '/',
   plugins: [
     vue(),
-    vueDevTools(),
+    ...(process.env.NODE_ENV === 'development' ? [vueDevTools()] : []),
   ],
   resolve: {
     alias: {
@@ -37,8 +37,14 @@ export default defineConfig({
       ],
     },
   },
+  esbuild: {
+    drop: ['console', 'debugger'],
+  },
   build: {
     target: 'es2015',
+    minify: 'esbuild',
+    cssMinify: true,
+    chunkSizeWarningLimit: 1000,
     rollupOptions: {
       output: {
         chunkFileNames: 'js/[name].[hash].js',

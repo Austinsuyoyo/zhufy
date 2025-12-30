@@ -236,7 +236,7 @@ const setupCanvasEvents = () => {
     },
     'object:moving': (e: fabric.TEvent) => {
       if (!canvas.value || !store.cropRect) return
-      const obj = e.target as fabric.Rect
+      const obj = (e as any).target as fabric.Rect
       if (obj !== store.cropRect) return
 
       const canvasWidth = canvas.value.width
@@ -259,7 +259,7 @@ const setupCanvasEvents = () => {
     },
     'object:scaling': (e: fabric.TEvent) => {
       if (!canvas.value || !store.cropRect) return
-      const obj = e.target as fabric.Rect
+      const obj = (e as any).target as fabric.Rect
       if (obj !== store.cropRect) return
 
       const canvasWidth = canvas.value.width
