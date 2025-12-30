@@ -1,0 +1,159 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Zen Maru Gothic', sans-serif;
+}
+
+.canvas-container {
+  margin: auto;
+  box-shadow:
+    0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
+  overflow: hidden;
+}
+
+.tab-btn {
+  margin: 2px 0;
+  border-radius: 0;
+  position: relative;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.tab-btn:hover {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.tab-btn svg {
+  position: relative;
+  z-index: 2;
+  transition: transform 0.3s ease;
+}
+
+.tab-btn span {
+  position: relative;
+  z-index: 2;
+  transition: color 0.3s ease;
+}
+
+.tab-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  transition: width 0.3s ease;
+  z-index: 1;
+}
+
+.tab-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 0;
+  transition: height 0.3s ease;
+  z-index: 3;
+}
+
+.tab-btn.active::before {
+  width: 100%;
+}
+
+.tab-btn.active::after {
+  height: 100%;
+}
+
+.tab-btn.active svg {
+  transform: scale(1.05);
+}
+
+.tab-bg.active {
+  --tab-color: #3b82f6;
+  color: var(--tab-color);
+}
+
+.tab-bg.active::before {
+  background: rgba(59, 130, 246, 0.08);
+}
+
+.tab-bg.active::after {
+  background: var(--tab-color);
+}
+
+.tab-text.active {
+  --tab-color: #10b981;
+  color: var(--tab-color);
+}
+
+.tab-text.active::before {
+  background: rgba(16, 185, 129, 0.08);
+}
+
+.tab-text.active::after {
+  background: var(--tab-color);
+}
+
+.tab-decor.active {
+  --tab-color: #a855f7;
+  color: var(--tab-color);
+}
+
+.tab-decor.active::before {
+  background: rgba(168, 85, 247, 0.08);
+}
+
+.tab-decor.active::after {
+  background: var(--tab-color);
+}
+
+.tab-crop.active {
+  --tab-color: #f97316;
+  color: var(--tab-color);
+}
+
+.tab-crop.active::before {
+  background: rgba(249, 115, 22, 0.08);
+}
+
+.tab-crop.active::after {
+  background: var(--tab-color);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.font-zen {
+  font-family: 'Zen Maru Gothic', sans-serif;
+}
+
+.font-serif {
+  font-family: 'Noto Serif TC', serif;
+}
+
+.font-sans {
+  font-family: 'Noto Sans TC', sans-serif;
+}
+
+.font-callig {
+  font-family: 'Zhi Mang Xing', cursive;
+}

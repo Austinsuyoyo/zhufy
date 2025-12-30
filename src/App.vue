@@ -1,11 +1,17 @@
-<script setup lang="ts"></script>
-
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+  <div class="bg-gray-50 h-screen flex flex-col overflow-hidden text-slate-800">
+    <Toolbar />
+    <div class="flex flex-1 overflow-hidden relative">
+      <Sidebar />
+      <CanvasEditor />
+      <Panel />
+    </div>
+  </div>
 </template>
 
-<style scoped></style>
+<script setup lang="ts">
+import Toolbar from './components/Toolbar.vue'
+import Sidebar from './components/Sidebar.vue'
+import CanvasEditor from './components/CanvasEditor.vue'
+import Panel from './components/Panel.vue'
+</script>
