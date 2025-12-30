@@ -1,7 +1,7 @@
 <template>
   <main
     ref="workspaceRef"
-    class="flex-1 bg-gray-100 relative overflow-auto flex items-center justify-center p-4 md:p-8"
+    class="flex-1 bg-gray-100 relative overflow-auto flex items-center justify-center p-2 md:p-4 lg:p-8 pb-20 md:pb-4"
   >
     <div
       ref="canvasWrapperRef"
@@ -12,7 +12,7 @@
 
     <div
       v-if="store.activeTab === 'crop' && store.cropRect"
-      class="absolute bottom-8 left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur text-slate-800 px-6 py-3 rounded-full shadow-2xl flex items-center gap-4 z-50 border border-gray-200"
+      class="absolute bottom-20 md:bottom-8 left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur text-slate-800 px-4 md:px-6 py-2 md:py-3 rounded-full shadow-2xl flex items-center gap-2 md:gap-4 z-50 border border-gray-200"
     >
       <span class="font-bold text-sm">裁切模式</span>
       <div class="h-4 w-px bg-gray-300"></div>
@@ -33,17 +33,58 @@
     </div>
 
     <div
-      class="absolute bottom-8 right-8 bg-white/95 backdrop-blur text-slate-800 px-4 py-2 rounded-full shadow-xl flex items-center gap-4 z-50 border border-gray-200"
+      class="fixed bottom-8 right-[calc(20rem+2rem)] z-[60] hidden md:flex items-center justify-center gap-2 bg-white/95 backdrop-blur rounded-full shadow-lg border border-gray-200 px-3 py-1.5"
     >
-      <span class="text-xs font-bold self-center"
-        >Zoom: {{ Math.round(store.zoomLevel * 100) }}%</span
+      <button
+        @click="handleZoomOut"
+        class="w-6 h-6 flex items-center justify-center text-gray-500 hover:text-blue-600 transition"
+        title="縮小"
       >
-      <div class="h-4 w-[1px] bg-gray-300 self-center"></div>
-      <button @click="handleZoomOut" class="hover:text-blue-600 transition" title="縮小">
         <Minus class="w-4 h-4" />
       </button>
-      <button @click="handleZoomIn" class="hover:text-blue-600 transition" title="放大">
+      <span class="text-xs font-medium text-gray-600 min-w-[40px] text-center">
+        {{ Math.round(store.zoomLevel * 100) }}%
+      </span>
+      <button
+        @click="handleZoomIn"
+        class="w-6 h-6 flex items-center justify-center text-gray-500 hover:text-blue-600 transition"
+        title="放大"
+      >
         <Plus class="w-4 h-4" />
+      </button>
+    </div>
+
+    <div
+      class="fixed bottom-20 left-2 right-2 z-[60] md:hidden flex items-center gap-2 bg-white/95 backdrop-blur rounded-full shadow-lg border border-gray-200 px-3 py-2"
+      :class="store.panelVisible ? 'hidden' : 'flex'"
+    >
+      <button
+        @click="handleZoomOut"
+        class="flex-shrink-0 w-6 h-6 flex items-center justify-center text-gray-500 hover:text-blue-600 transition"
+        title="縮小"
+      >
+        <Minus class="w-3.5 h-3.5 stroke-[2.5]" />
+      </button>
+      <div class="flex-1 flex items-center gap-2 min-w-0">
+        <input
+          type="range"
+          :value="store.zoomLevel"
+          @input="handleZoomChange"
+          min="0.1"
+          max="3"
+          step="0.1"
+          class="flex-1 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-500 min-w-0"
+        />
+        <span class="text-[10px] font-medium w-9 text-center text-gray-500 flex-shrink-0">
+          {{ Math.round(store.zoomLevel * 100) }}%
+        </span>
+      </div>
+      <button
+        @click="handleZoomIn"
+        class="flex-shrink-0 w-6 h-6 flex items-center justify-center text-gray-500 hover:text-blue-600 transition"
+        title="放大"
+      >
+        <Plus class="w-3.5 h-3.5 stroke-[2.5]" />
       </button>
     </div>
   </main>
@@ -160,6 +201,13 @@ const handleZoomIn = () => {
 
 const handleZoomOut = () => {
   const newZoom = Math.max(0.1, store.zoomLevel - 0.1)
+  store.setZoom(newZoom)
+  updateZoomTransform()
+}
+
+const handleZoomChange = (e: Event) => {
+  const target = e.target as HTMLInputElement
+  const newZoom = parseFloat(target.value)
   store.setZoom(newZoom)
   updateZoomTransform()
 }

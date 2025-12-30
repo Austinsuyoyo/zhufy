@@ -16,6 +16,7 @@ export function useCanvas(canvasId: string) {
       selectionColor: 'rgba(59, 130, 246, 0.3)',
       selectionBorderColor: '#2563eb',
       selectionLineWidth: 2,
+      enableRetinaScaling: true,
     })
 
     fabric.Object.prototype.set({

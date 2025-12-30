@@ -1,44 +1,44 @@
 <template>
   <nav
-    class="h-16 bg-white border-b border-gray-200 text-slate-800 flex items-center justify-between px-6 shadow-sm z-20 shrink-0"
+    class="h-14 md:h-16 bg-white border-b border-gray-200 text-slate-800 flex items-center justify-between px-3 md:px-6 shadow-sm z-20 shrink-0"
   >
-    <div class="flex items-center gap-3">
-      <Sparkles class="w-6 h-6 text-blue-500" />
-      <h1 class="text-xl font-bold tracking-wider hidden sm:block">長輩圖產生器</h1>
-      <h1 class="text-xl font-bold tracking-wider sm:hidden">長輩圖</h1>
+    <div class="flex items-center gap-2 md:gap-3">
+      <Sparkles class="w-5 h-5 md:w-6 md:h-6 text-blue-500" />
+      <h1 class="text-base md:text-xl font-bold tracking-wider hidden sm:block">長輩圖產生器</h1>
+      <h1 class="text-base md:text-xl font-bold tracking-wider sm:hidden">長輩圖</h1>
       <a
         href="https://github.com/austinsuyoyo"
         target="_blank"
         rel="noopener noreferrer"
-        class="github-link text-gray-600 hover:text-gray-900 transition-colors"
+        class="github-link text-gray-600 hover:text-gray-900 transition-colors hidden sm:block"
         aria-label="GitHub"
       >
         <Github class="w-5 h-5" />
       </a>
     </div>
-    <div class="flex items-center gap-4">
+    <div class="flex items-center gap-2 md:gap-4">
       <button
         @click="handleReset"
-        class="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-lg transition shadow-lg hover:shadow-orange-500/50"
+        class="flex items-center gap-1 md:gap-2 bg-orange-500 hover:bg-orange-600 text-white font-bold py-1.5 md:py-2 px-2 md:px-4 rounded-lg transition shadow-lg hover:shadow-orange-500/50 text-sm md:text-base"
       >
-        <RefreshCw class="w-5 h-5" />
-        <span>重置</span>
+        <RefreshCw class="w-4 h-4 md:w-5 md:h-5" />
+        <span class="hidden sm:inline">重置</span>
       </button>
       <div class="relative flex items-center">
         <button
           @click="handleDownload"
-          class="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded-lg transition shadow-lg hover:shadow-blue-500/50"
+          class="flex items-center gap-1 md:gap-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-1.5 md:py-2 px-3 md:px-6 rounded-lg transition shadow-lg hover:shadow-blue-500/50 text-sm md:text-base"
         >
-          <Download class="w-5 h-5" />
-          <span>下載</span>
+          <Download class="w-4 h-4 md:w-5 md:h-5" />
+          <span class="hidden sm:inline">下載</span>
         </button>
         <button
           @click.stop="showResolutionMenu = !showResolutionMenu"
-          class="ml-1 p-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition"
+          class="ml-1 p-1.5 md:p-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition"
           aria-label="選擇下載解析度"
           :aria-expanded="showResolutionMenu"
         >
-          <ChevronDown class="w-4 h-4" />
+          <ChevronDown class="w-3 h-3 md:w-4 md:h-4" />
         </button>
         <div
           v-if="showResolutionMenu"
