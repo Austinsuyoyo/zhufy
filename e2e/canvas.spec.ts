@@ -1,5 +1,5 @@
 import { test, expect } from './fixtures/editor'
-import { simulateCanvasWheelZoom, dragCanvasCorner, dragObjectCorner } from './utils/helpers'
+import { simulateCanvasWheelZoom } from './utils/helpers'
 
 test.describe('Canvas 操作', () => {
   test('Zoom 按鈕功能', async ({ editor }) => {

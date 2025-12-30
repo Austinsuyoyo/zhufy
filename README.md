@@ -4,6 +4,8 @@
 
 基於 Vue 3、TypeScript 和 Fabric.js 建置的高效能長輩圖編輯器。可建立包含背景、文字、濾鏡、表情符號等元素的精美長輩圖。
 
+![Screenshot](./screenshot.png)
+
 ## ✨ 功能特色
 
 - **背景管理** - 預設背景與自訂圖片上傳
@@ -52,17 +54,17 @@ npm run preview
 ```
 zhufy/
 ├── src/
-│   ├── components/          # Vue 組件
-│   │   ├── panels/         # 面板組件（背景、文字、裝飾、裁切）
-│   ├── composables/        # Composition API hooks
+│   ├── components/        # Vue 組件
+│   │   ├── panels/        # 面板組件（背景、文字、裝飾、裁切）
+│   ├── composables/       # Composition API hooks
 │   ├── stores/            # Pinia stores
-│   ├── utils/              # 工具函數
+│   ├── utils/             # 工具函數
 │   ├── config/            # 配置檔案
 │   └── style.css          # 全域樣式
 ├── e2e/                   # E2E 測試
 │   ├── fixtures/          # 測試 fixtures
 │   ├── pages/             # Page Object Models
-│   └── utils/              # 測試工具
+│   └── utils/             # 測試工具
 └── public/
     └── backgrounds/       # 背景圖片
 ```

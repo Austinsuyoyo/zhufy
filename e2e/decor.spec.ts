@@ -1,4 +1,4 @@
-import { test, expect } from './fixtures/editor'
+import { test } from './fixtures/editor'
 
 test.describe('裝飾功能', () => {
   test('添加 Emoji', async ({ editor }) => {

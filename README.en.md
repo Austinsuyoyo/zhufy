@@ -4,6 +4,8 @@
 
 A modern, high-performance greeting card editor built with Vue 3, TypeScript, and Fabric.js. Create beautiful greeting cards with backgrounds, text, filters, emojis, and more.
 
+![Screenshot](./screenshot.png)
+
 ## ✨ Features
 
 - **Background Management** - Preset backgrounds and custom image upload
@@ -52,17 +54,17 @@ npm run preview
 ```
 zhufy/
 ├── src/
-│   ├── components/          # Vue components
-│   │   ├── panels/         # Panel components (Background, Text, Decor, Crop)
-│   ├── composables/        # Composition API hooks
+│   ├── components/        # Vue components
+│   │   ├── panels/        # Panel components (Background, Text, Decor, Crop)
+│   ├── composables/       # Composition API hooks
 │   ├── stores/            # Pinia stores
-│   ├── utils/              # Utility functions
+│   ├── utils/             # Utility functions
 │   ├── config/            # Configuration files
 │   └── style.css          # Global styles
 ├── e2e/                   # E2E tests
 │   ├── fixtures/          # Test fixtures
 │   ├── pages/             # Page object models
-│   └── utils/              # Test utilities
+│   └── utils/             # Test utilities
 └── public/
     └── backgrounds/       # Background images
 ```
