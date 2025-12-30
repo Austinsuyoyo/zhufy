@@ -105,6 +105,31 @@ const { canvas, initCanvas: initCanvasComposable } = useCanvas('c')
 const workspaceRef = ref<HTMLElement>()
 const canvasWrapperRef = ref<HTMLElement>()
 
+const adjustZoomForBackground = (currentCanvas: any) => {
+  if (!currentCanvas) return
+
+  const isMobile = window.innerWidth < 768
+  const canvasWidth = currentCanvas.width
+  const canvasHeight = currentCanvas.height
+
+  let availableWidth = window.innerWidth
+  let availableHeight = window.innerHeight
+
+  if (isMobile) {
+    availableHeight -= 64
+  } else {
+    availableWidth -= 320
+    availableHeight -= 32
+  }
+
+  const scaleX = availableWidth / canvasWidth
+  const scaleY = availableHeight / canvasHeight
+  const newZoom = Math.min(scaleX, scaleY, 1) * 0.9
+
+  store.setZoom(Math.max(0.1, newZoom))
+  updateZoomTransform()
+}
+
 const initCanvasData = async () => {
   if (!canvas.value) return
   const currentCanvas = canvas.value
@@ -141,6 +166,9 @@ const initCanvasData = async () => {
     currentCanvas.add(text)
     currentCanvas.setActiveObject(text)
     requestRender(currentCanvas)
+
+    await nextTick()
+    adjustZoomForBackground(currentCanvas)
   } catch (error) {
     console.error('Failed to load background:', error)
   }

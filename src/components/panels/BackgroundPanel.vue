@@ -105,7 +105,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, watch, nextTick } from 'vue'
 import { Shuffle, Upload } from 'lucide-vue-next'
 import * as fabric from 'fabric'
 import { useEditorStore } from '../../stores/editor'
@@ -169,6 +169,30 @@ watch(blurValue, (val) => applyFilter('blur', val))
 watch(brightnessValue, (val) => applyFilter('brightness', val))
 watch(contrastValue, (val) => applyFilter('contrast', val))
 
+const adjustZoomForBackground = (canvas: any) => {
+  if (!canvas) return
+
+  const isMobile = window.innerWidth < 768
+  const canvasWidth = canvas.width
+  const canvasHeight = canvas.height
+
+  let availableWidth = window.innerWidth
+  let availableHeight = window.innerHeight
+
+  if (isMobile) {
+    availableHeight -= 64
+  } else {
+    availableWidth -= 320
+    availableHeight -= 32
+  }
+
+  const scaleX = availableWidth / canvasWidth
+  const scaleY = availableHeight / canvasHeight
+  const newZoom = Math.min(scaleX, scaleY, 1) * 0.9
+
+  store.setZoom(Math.max(0.1, newZoom))
+}
+
 const loadBackground = async (url: string) => {
   const canvas = store.canvas
   if (!canvas) return
@@ -190,6 +214,9 @@ const loadBackground = async (url: string) => {
     canvas.backgroundImage = img
     requestRender(canvas)
     store.setCurrentBgUrl(url)
+
+    await nextTick()
+    adjustZoomForBackground(canvas)
   } catch (error) {
     console.error('Failed to load background:', error)
   }

@@ -7,7 +7,7 @@ export type TabType = 'bg' | 'text' | 'decor' | 'crop'
 export const useEditorStore = defineStore('editor', () => {
   const canvas = shallowRef<any>(null)
   const activeTab = ref<TabType>('bg')
-  const panelVisible = ref(true)
+  const panelVisible = ref(typeof window !== 'undefined' && window.innerWidth >= 768)
   const activeObject = shallowRef<FabricObject | null>(null)
   const zoomLevel = ref(1)
   const cropRect = shallowRef<FabricObject | null>(null)
@@ -33,7 +33,8 @@ export const useEditorStore = defineStore('editor', () => {
       panelVisible.value = !panelVisible.value
     } else {
       activeTab.value = tab
-      panelVisible.value = true
+      const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
+      panelVisible.value = !isMobile
     }
   }
 
