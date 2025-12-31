@@ -1,4 +1,4 @@
-import { ref, onMounted, onUnmounted, nextTick, shallowRef } from 'vue'
+import { ref, onUnmounted, nextTick, shallowRef } from 'vue'
 
 export function useCanvas(canvasId: string) {
   const canvas = shallowRef<any>(null)
@@ -30,10 +30,6 @@ export function useCanvas(canvasId: string) {
       borderDashArray: [4, 4],
     })
   }
-
-  onMounted(() => {
-    initCanvas()
-  })
 
   onUnmounted(() => {
     if (canvas.value) {
