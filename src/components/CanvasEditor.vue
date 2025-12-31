@@ -404,8 +404,7 @@ const setupKeyboardEvents = () => {
       e.preventDefault()
       const active = store.canvas?.getActiveObject()
       if (active && store.canvas) {
-        const cloned = (active as any).clone() as fabric.Object | null
-        if (cloned) {
+        active.clone().then((cloned: fabric.Object) => {
           cloned.set({
             left: ((cloned.left as number) || 0) + 30,
             top: ((cloned.top as number) || 0) + 30,
@@ -413,7 +412,7 @@ const setupKeyboardEvents = () => {
           store.canvas!.add(cloned)
           store.canvas!.setActiveObject(cloned)
           requestRender(store.canvas!)
-        }
+        })
       }
     }
   }

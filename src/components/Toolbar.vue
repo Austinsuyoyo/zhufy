@@ -119,23 +119,70 @@ const downloadWithResolution = (multiplier: number) => {
   handleDownload()
 }
 
+const isIOS = () => {
+  return (
+    /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
+  )
+}
+
 const handleDownload = () => {
   const canvas = store.canvas
   if (!canvas) return
 
-  requestIdleCallback(() => {
-    const dataURL = canvas.toDataURL({
-      format: 'png',
-      quality: 1,
-      multiplier: downloadMultiplier.value,
-    })
-    const link = document.createElement('a')
-    link.download = `senior-greet-${Date.now()}.png`
-    link.href = dataURL
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
-  })
+  const doDownload = () => {
+    if (isIOS()) {
+      const dataURL = canvas.toDataURL({
+        format: 'png',
+        quality: 1,
+        multiplier: downloadMultiplier.value,
+      })
+      const newWindow = window.open()
+      if (newWindow) {
+        newWindow.document.write(`
+          <html>
+            <head>
+              <title>長按圖片保存</title>
+              <meta name="viewport" content="width=device-width, initial-scale=1">
+              <style>
+                body { margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; background: #f5f5f5; font-family: system-ui; }
+                img { max-width: 100%; height: auto; box-shadow: 0 4px 20px rgba(0,0,0,0.15); border-radius: 8px; }
+                p { color: #666; margin-top: 20px; text-align: center; padding: 0 20px; }
+              </style>
+            </head>
+            <body>
+              <img src="${dataURL}" alt="長輩圖">
+              <p>📱 長按圖片 → 選擇「加入照片」保存</p>
+            </body>
+          </html>
+        `)
+        newWindow.document.close()
+      }
+    } else {
+      const canvasEl = canvas.toCanvasElement(downloadMultiplier.value)
+      canvasEl.toBlob(
+        (blob) => {
+          if (!blob) return
+          const url = URL.createObjectURL(blob)
+          const link = document.createElement('a')
+          link.download = `senior-greet-${Date.now()}.png`
+          link.href = url
+          document.body.appendChild(link)
+          link.click()
+          document.body.removeChild(link)
+          URL.revokeObjectURL(url)
+        },
+        'image/png',
+        1,
+      )
+    }
+  }
+
+  if (typeof requestIdleCallback !== 'undefined') {
+    requestIdleCallback(doDownload)
+  } else {
+    setTimeout(doDownload, 0)
+  }
 }
 
 const handleClickOutside = (e: MouseEvent) => {
