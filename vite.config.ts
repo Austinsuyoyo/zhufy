@@ -53,6 +53,7 @@ export default defineConfig({
         manualChunks: {
           'vendor-vue': ['vue', 'pinia'],
           'vendor-fabric': ['fabric'],
+          'vendor-icons': ['lucide-vue-next'],
         },
       },
     },

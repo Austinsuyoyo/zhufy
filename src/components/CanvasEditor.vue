@@ -74,6 +74,7 @@
           max="3"
           step="0.1"
           class="flex-1 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-500 min-w-0"
+          aria-label="縮放比例"
         />
         <span class="text-[10px] font-medium w-9 text-center text-gray-500 flex-shrink-0">
           {{ Math.round(store.zoomLevel * 100) }}%

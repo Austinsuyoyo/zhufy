@@ -20,17 +20,19 @@
       <button
         @click="showResetModal = true"
         class="flex items-center gap-1 md:gap-2 bg-orange-500 hover:bg-orange-600 text-white font-bold py-1.5 md:py-2 px-2 md:px-4 rounded-lg transition shadow-lg hover:shadow-orange-500/50 text-sm md:text-base"
+        aria-label="重置畫布"
       >
         <RefreshCw class="w-4 h-4 md:w-5 md:h-5" />
-        <span class="hidden sm:inline">重置</span>
+        <span class="hidden sm:inline" aria-hidden="true">重置</span>
       </button>
       <div class="relative flex items-center">
         <button
           @click="handleDownload"
           class="flex items-center gap-1 md:gap-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-1.5 md:py-2 px-3 md:px-6 rounded-lg transition shadow-lg hover:shadow-blue-500/50 text-sm md:text-base"
+          aria-label="下載圖片"
         >
           <Download class="w-4 h-4 md:w-5 md:h-5" />
-          <span class="hidden sm:inline">下載</span>
+          <span class="hidden sm:inline" aria-hidden="true">下載</span>
         </button>
         <button
           @click.stop="showResolutionMenu = !showResolutionMenu"
@@ -161,7 +163,7 @@ const handleDownload = () => {
     } else {
       const canvasEl = canvas.toCanvasElement(downloadMultiplier.value)
       canvasEl.toBlob(
-        (blob) => {
+        (blob: Blob | null) => {
           if (!blob) return
           const url = URL.createObjectURL(blob)
           const link = document.createElement('a')

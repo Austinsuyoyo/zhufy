@@ -1,5 +1,4 @@
 import { ref, onMounted, onUnmounted, nextTick, shallowRef } from 'vue'
-import * as fabric from 'fabric'
 
 export function useCanvas(canvasId: string) {
   const canvas = shallowRef<any>(null)
@@ -10,6 +9,8 @@ export function useCanvas(canvasId: string) {
     canvasEl.value = document.getElementById(canvasId) as HTMLCanvasElement
 
     if (!canvasEl.value || canvas.value) return
+
+    const fabric = await import('fabric')
 
     canvas.value = new fabric.Canvas(canvasId, {
       preserveObjectStacking: true,
