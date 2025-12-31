@@ -33,8 +33,7 @@ export const useEditorStore = defineStore('editor', () => {
       panelVisible.value = !panelVisible.value
     } else {
       activeTab.value = tab
-      const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
-      panelVisible.value = !isMobile
+      panelVisible.value = true
     }
   }
 
