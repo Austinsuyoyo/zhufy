@@ -7,8 +7,15 @@
       panelClass,
     ]"
   >
-    <div class="h-14 border-b border-gray-100 flex items-center px-6 bg-gray-50">
+    <div class="h-14 border-b border-gray-100 flex items-center justify-between px-6 bg-gray-50">
       <h2 class="text-lg font-bold text-slate-700">{{ store.panelTitles[activeTab] }}</h2>
+      <button
+        @click="store.panelVisible = false"
+        class="md:hidden w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-600 hover:bg-gray-200 rounded-full transition"
+        aria-label="關閉面板"
+      >
+        <X class="w-5 h-5" />
+      </button>
     </div>
     <div class="flex-1 overflow-y-auto p-4 md:p-6 space-y-6 md:space-y-8">
       <BackgroundPanel v-if="activeTab === 'bg'" />
@@ -36,6 +43,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
+import { X } from 'lucide-vue-next'
 import { useEditorStore } from '../stores/editor'
 import BackgroundPanel from './panels/BackgroundPanel.vue'
 import TextPanel from './panels/TextPanel.vue'

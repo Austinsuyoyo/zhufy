@@ -55,8 +55,8 @@
     </div>
 
     <div
+      v-if="!store.panelVisible && !store.cropRect"
       class="fixed bottom-20 left-2 right-2 z-[60] md:hidden flex items-center gap-2 bg-white/95 backdrop-blur rounded-full shadow-lg border border-gray-200 px-3 py-2"
-      :class="store.panelVisible ? 'hidden' : 'flex'"
     >
       <button
         @click="handleZoomOut"

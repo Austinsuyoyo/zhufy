@@ -20,10 +20,15 @@
       <label class="text-xs font-bold text-gray-600 uppercase tracking-wider">自定義貼圖</label>
       <button
         @click="fileInputRef?.click()"
-        class="w-full py-3 bg-gray-100 hover:bg-gray-200 rounded-lg text-slate-700 font-bold transition flex items-center justify-center gap-2"
+        :disabled="isLoading"
+        :class="[
+          'w-full py-3 bg-gray-100 hover:bg-gray-200 rounded-lg text-slate-700 font-bold transition flex items-center justify-center gap-2',
+          { 'opacity-50 cursor-not-allowed': isLoading },
+        ]"
       >
-        <ImagePlus class="w-4 h-4" />
-        上傳 PNG / JPG
+        <Loader2 v-if="isLoading" class="w-4 h-4 animate-spin" />
+        <ImagePlus v-else class="w-4 h-4" />
+        {{ isLoading ? '上傳中...' : '上傳 PNG / JPG' }}
       </button>
       <input
         ref="fileInputRef"
@@ -39,7 +44,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { ImagePlus } from 'lucide-vue-next'
+import { ImagePlus, Loader2 } from 'lucide-vue-next'
 import * as fabric from 'fabric'
 import { useEditorStore } from '../../stores/editor'
 import { CONFIG } from '../../config/constants'
@@ -47,6 +52,7 @@ import { requestRender } from '../../utils/renderManager'
 
 const store = useEditorStore()
 const fileInputRef = ref<HTMLInputElement>()
+const isLoading = ref(false)
 
 const addEmoji = (emoji: string) => {
   const canvas = store.canvas
@@ -79,6 +85,7 @@ const handleStickerUpload = async (e: Event) => {
   const canvas = store.canvas
   if (!canvas) return
 
+  isLoading.value = true
   const reader = new FileReader()
   reader.onload = async (f) => {
     try {
@@ -100,7 +107,12 @@ const handleStickerUpload = async (e: Event) => {
       store.setActiveObject(img)
     } catch (error) {
       console.error('Sticker upload failed', error)
+    } finally {
+      isLoading.value = false
     }
+  }
+  reader.onerror = () => {
+    isLoading.value = false
   }
   reader.readAsDataURL(file)
   ;(e.target as HTMLInputElement).value = ''

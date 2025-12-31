@@ -7,7 +7,10 @@
           v-for="bg in CONFIG.backgrounds"
           :key="bg.url"
           @click="loadBackground(bg.url)"
-          class="aspect-video bg-gray-100 rounded-lg overflow-hidden cursor-pointer hover:ring-2 ring-blue-400 transition relative group shadow-sm"
+          :class="[
+            'aspect-video bg-gray-100 rounded-lg overflow-hidden cursor-pointer hover:ring-2 ring-blue-400 transition relative group shadow-sm',
+            { 'pointer-events-none': isLoading },
+          ]"
         >
           <img
             :src="bg.url"
@@ -18,13 +21,24 @@
           <div
             class="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity"
           ></div>
+          <div
+            v-if="isLoading && loadingUrl === bg.url"
+            class="absolute inset-0 bg-white/80 flex items-center justify-center"
+          >
+            <Loader2 class="w-6 h-6 text-blue-500 animate-spin" />
+          </div>
         </div>
       </div>
       <button
         @click="setRandomBg"
-        class="w-full py-2 border-2 border-dashed border-gray-300 rounded-lg text-gray-500 hover:border-blue-400 hover:text-blue-600 transition flex items-center justify-center gap-2 text-sm font-bold"
+        :disabled="isLoading"
+        :class="[
+          'w-full py-2 border-2 border-dashed border-gray-300 rounded-lg text-gray-500 hover:border-blue-400 hover:text-blue-600 transition flex items-center justify-center gap-2 text-sm font-bold',
+          { 'opacity-50 cursor-not-allowed': isLoading },
+        ]"
       >
-        <Shuffle class="w-4 h-4" />
+        <Loader2 v-if="isLoading" class="w-4 h-4 animate-spin" />
+        <Shuffle v-else class="w-4 h-4" />
         隨機更換
       </button>
     </div>
@@ -33,9 +47,14 @@
       <label class="text-xs font-bold text-gray-600 uppercase tracking-wider">自定義背景</label>
       <button
         @click="fileInputRef?.click()"
-        class="w-full py-3 bg-gray-100 hover:bg-gray-200 rounded-lg text-slate-700 font-bold transition flex items-center justify-center gap-2"
+        :disabled="isLoading"
+        :class="[
+          'w-full py-3 bg-gray-100 hover:bg-gray-200 rounded-lg text-slate-700 font-bold transition flex items-center justify-center gap-2',
+          { 'opacity-50 cursor-not-allowed': isLoading },
+        ]"
       >
-        <Upload class="w-4 h-4" />
+        <Loader2 v-if="isLoading" class="w-4 h-4 animate-spin" />
+        <Upload v-else class="w-4 h-4" />
         上傳圖片
       </button>
       <input
@@ -52,8 +71,8 @@
 
       <div class="space-y-1">
         <div class="flex justify-between text-xs font-bold text-gray-600">
-          <label for="blur-slider">模糊 (Blur)</label>
-          <span class="text-blue-600">{{ blurValue }}</span>
+          <label for="blur-slider">模糊</label>
+          <span class="text-blue-600">{{ Math.round(blurValue * 100) }}%</span>
         </div>
         <input
           id="blur-slider"
@@ -69,8 +88,10 @@
 
       <div class="space-y-1">
         <div class="flex justify-between text-xs font-bold text-gray-600">
-          <label for="brightness-slider">亮度 (Brightness)</label>
-          <span class="text-blue-600">{{ brightnessValue }}</span>
+          <label for="brightness-slider">亮度</label>
+          <span class="text-blue-600"
+            >{{ brightnessValue >= 0 ? '+' : '' }}{{ Math.round(brightnessValue * 100) }}%</span
+          >
         </div>
         <input
           id="brightness-slider"
@@ -86,8 +107,10 @@
 
       <div class="space-y-1">
         <div class="flex justify-between text-xs font-bold text-gray-600">
-          <label for="contrast-slider">對比 (Contrast)</label>
-          <span class="text-blue-600">{{ contrastValue }}</span>
+          <label for="contrast-slider">對比</label>
+          <span class="text-blue-600"
+            >{{ contrastValue >= 0 ? '+' : '' }}{{ Math.round(contrastValue * 100) }}%</span
+          >
         </div>
         <input
           id="contrast-slider"
@@ -106,7 +129,7 @@
 
 <script setup lang="ts">
 import { ref, watch, nextTick } from 'vue'
-import { Shuffle, Upload } from 'lucide-vue-next'
+import { Shuffle, Upload, Loader2 } from 'lucide-vue-next'
 import * as fabric from 'fabric'
 import { useEditorStore } from '../../stores/editor'
 import { CONFIG } from '../../config/constants'
@@ -120,6 +143,8 @@ const fileInputRef = ref<HTMLInputElement>()
 const blurValue = ref(0)
 const brightnessValue = ref(0)
 const contrastValue = ref(0)
+const isLoading = ref(false)
+const loadingUrl = ref<string | null>(null)
 
 const getBackgroundAlt = (url: string) => {
   const name = url.split('/').pop()?.replace('.jpg', '') || ''
@@ -195,7 +220,10 @@ const adjustZoomForBackground = (canvas: any) => {
 
 const loadBackground = async (url: string) => {
   const canvas = store.canvas
-  if (!canvas) return
+  if (!canvas || isLoading.value) return
+
+  isLoading.value = true
+  loadingUrl.value = url
 
   try {
     let img: fabric.Image
@@ -219,6 +247,9 @@ const loadBackground = async (url: string) => {
     adjustZoomForBackground(canvas)
   } catch (error) {
     console.error('Failed to load background:', error)
+  } finally {
+    isLoading.value = false
+    loadingUrl.value = null
   }
 }
 

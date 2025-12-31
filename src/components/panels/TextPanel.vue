@@ -134,29 +134,37 @@
         <div class="grid grid-cols-2 gap-3">
           <div class="space-y-1">
             <span class="text-xs text-gray-600 font-medium">文字顏色</span>
-            <div class="flex items-center gap-2 bg-white border border-gray-200 p-1.5 rounded-lg">
+            <label
+              class="flex items-center gap-2 bg-white border border-gray-200 p-2 rounded-lg cursor-pointer hover:border-blue-400 transition"
+            >
               <input
                 type="color"
                 :value="fillColor"
                 @input="handleFillChange"
                 aria-label="文字顏色"
-                class="w-6 h-6 rounded cursor-pointer border-none bg-transparent p-0"
+                class="w-8 h-8 rounded cursor-pointer border-none bg-transparent p-0"
               />
-              <span class="text-[10px] font-mono text-gray-600 uppercase">{{ fillColor }}</span>
-            </div>
+              <span class="text-[10px] font-mono text-gray-600 uppercase flex-1">{{
+                fillColor
+              }}</span>
+            </label>
           </div>
           <div class="space-y-1">
             <span class="text-xs text-gray-600 font-medium">描邊顏色</span>
-            <div class="flex items-center gap-2 bg-white border border-gray-200 p-1.5 rounded-lg">
+            <label
+              class="flex items-center gap-2 bg-white border border-gray-200 p-2 rounded-lg cursor-pointer hover:border-blue-400 transition"
+            >
               <input
                 type="color"
                 :value="strokeColor"
                 @input="handleStrokeChange"
                 aria-label="描邊顏色"
-                class="w-6 h-6 rounded cursor-pointer border-none bg-transparent p-0"
+                class="w-8 h-8 rounded cursor-pointer border-none bg-transparent p-0"
               />
-              <span class="text-[10px] font-mono text-gray-600 uppercase">{{ strokeColor }}</span>
-            </div>
+              <span class="text-[10px] font-mono text-gray-600 uppercase flex-1">{{
+                strokeColor
+              }}</span>
+            </label>
           </div>
         </div>
 
@@ -284,6 +292,13 @@
         <Trash2 class="w-4 h-4" />
         刪除此物件
       </button>
+
+      <div class="mt-4 p-3 bg-gray-50 rounded-lg border border-gray-100">
+        <p class="text-[10px] text-gray-500 font-medium">
+          <Keyboard class="w-3 h-3 inline mr-1" />
+          快捷鍵：Delete 刪除 · Ctrl+D 複製
+        </p>
+      </div>
     </div>
   </div>
 </template>
@@ -301,6 +316,7 @@ import {
   ArrowUp,
   ArrowDown,
   Trash2,
+  Keyboard,
 } from 'lucide-vue-next'
 import * as fabric from 'fabric'
 import { useEditorStore } from '../../stores/editor'

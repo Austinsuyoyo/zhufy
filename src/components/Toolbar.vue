@@ -18,7 +18,7 @@
     </div>
     <div class="flex items-center gap-2 md:gap-4">
       <button
-        @click="handleReset"
+        @click="showResetModal = true"
         class="flex items-center gap-1 md:gap-2 bg-orange-500 hover:bg-orange-600 text-white font-bold py-1.5 md:py-2 px-2 md:px-4 rounded-lg transition shadow-lg hover:shadow-orange-500/50 text-sm md:text-base"
       >
         <RefreshCw class="w-4 h-4 md:w-5 md:h-5" />
@@ -60,6 +60,16 @@
         </div>
       </div>
     </div>
+
+    <ConfirmModal
+      :visible="showResetModal"
+      title="確認重置"
+      message="確定要清除所有文字和裝飾嗎？背景將保留。"
+      confirm-text="確認重置"
+      cancel-text="取消"
+      @confirm="confirmReset"
+      @cancel="showResetModal = false"
+    />
   </nav>
 </template>
 
@@ -69,6 +79,7 @@ import { Sparkles, RefreshCw, Download, ChevronDown, Github } from 'lucide-vue-n
 import * as fabric from 'fabric'
 import { useEditorStore } from '../stores/editor'
 import { requestRender } from '../utils/renderManager'
+import ConfirmModal from './ConfirmModal.vue'
 
 defineOptions({
   name: 'EditorToolbar',
@@ -78,6 +89,7 @@ const store = useEditorStore()
 
 const showResolutionMenu = ref(false)
 const downloadMultiplier = ref(1)
+const showResetModal = ref(false)
 
 const resolutions = [
   { label: '1x (原始)', value: 1 },
@@ -86,9 +98,8 @@ const resolutions = [
   { label: '3x (最高解析)', value: 3 },
 ]
 
-const handleReset = () => {
-  if (!confirm('確定要清除所有文字和裝飾嗎？背景將保留。')) return
-
+const confirmReset = () => {
+  showResetModal.value = false
   const canvas = store.canvas
   if (!canvas) return
 
