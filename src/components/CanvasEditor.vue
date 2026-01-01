@@ -1,7 +1,7 @@
 <template>
   <main
     ref="workspaceRef"
-    class="flex-1 bg-gray-100 relative overflow-auto flex items-center justify-center p-2 md:p-4 lg:p-8 pb-20 md:pb-4"
+    class="flex-1 min-w-0 w-full bg-gray-100 relative overflow-hidden flex items-center justify-center p-2 md:p-4 lg:p-8 pb-20 md:pb-4"
   >
     <div
       ref="canvasWrapperRef"
@@ -187,6 +187,14 @@ watch(canvas, async (newCanvas) => {
   }
 })
 
+const preventScroll = () => {
+  window.scrollTo(0, 0)
+  document.documentElement.scrollLeft = 0
+  document.documentElement.scrollTop = 0
+  document.body.scrollLeft = 0
+  document.body.scrollTop = 0
+}
+
 onMounted(async () => {
   await initCanvasComposable()
   await nextTick()
@@ -203,6 +211,9 @@ onMounted(async () => {
   if (workspaceRef.value) {
     workspaceRef.value.addEventListener('wheel', handleWheel, { passive: false })
   }
+
+  window.addEventListener('scroll', preventScroll, { passive: true })
+  document.addEventListener('scroll', preventScroll, { passive: true })
 })
 
 const updateZoomTransform = () => {
@@ -433,6 +444,8 @@ onUnmounted(() => {
     canvas.value.off(canvasEventHandlers)
     canvasEventHandlers = null
   }
+  window.removeEventListener('scroll', preventScroll)
+  document.removeEventListener('scroll', preventScroll)
 })
 
 watch(

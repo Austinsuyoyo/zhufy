@@ -2,6 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
+body {
+  overflow: hidden;
+  overscroll-behavior: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+
+textarea[name="fabricTextarea"] {
+  left: 0 !important;
+  top: 0 !important;
+  position: fixed !important;
+}
+
 body {
   font-family: 'Zen Maru Gothic', sans-serif;
 }
