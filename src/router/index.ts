@@ -2,6 +2,15 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Editor from '@/components/Editor.vue'
 import Landing from '@/views/Landing.vue'
 
+if (typeof window !== 'undefined') {
+  const params = new URLSearchParams(window.location.search)
+  const redirectPath = params.get('p')
+  if (redirectPath) {
+    const base = import.meta.env.BASE_URL.replace(/\/$/, '')
+    window.history.replaceState(null, '', base + decodeURIComponent(redirectPath))
+  }
+}
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
