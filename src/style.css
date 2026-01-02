@@ -2,8 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
-body {
+body.editor-mode {
   overflow: hidden;
   overscroll-behavior: none;
   position: fixed;
@@ -11,7 +10,7 @@ body {
   height: 100%;
 }
 
-textarea[name="fabricTextarea"] {
+textarea[name='fabricTextarea'] {
   left: 0 !important;
   top: 0 !important;
   position: fixed !important;

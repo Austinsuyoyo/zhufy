@@ -12,7 +12,8 @@
   <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@900&display=swap" fetchpriority="high" />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@900&display=swap"
+    fetchpriority="high" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@900&display=swap" />
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Noto+Serif+TC:wght@400;700;900&family=Zen+Maru+Gothic:wght@400;700&family=Zhi+Mang+Xing&display=swap"
@@ -24,6 +25,14 @@
 </head>
 
 <body>
+  <script>
+    (function () {
+      const path = window.location.pathname;
+      if (/\/editor(\/|$)/.test(path)) {
+        document.body.classList.add('editor-mode');
+      }
+    })();
+  </script>
   <div id="app"></div>
   <script type="module" src="/src/main.ts"></script>
 </body>

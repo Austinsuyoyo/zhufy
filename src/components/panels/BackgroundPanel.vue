@@ -147,7 +147,7 @@ const isLoading = ref(false)
 const loadingUrl = ref<string | null>(null)
 
 const getBackgroundAlt = (url: string) => {
-  const name = url.split('/').pop()?.replace('.jpg', '') || ''
+  const name = url.split('/').pop()?.replace('.webp', '') || ''
   const nameMap: Record<string, string> = {
     lotus: '蓮花背景',
     sunrise: '日出背景',

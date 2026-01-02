@@ -74,11 +74,11 @@ export const CONFIG = {
     '🦄',
   ],
   backgrounds: [
-    { url: import.meta.env.BASE_URL + 'backgrounds/lotus.jpg' },
-    { url: import.meta.env.BASE_URL + 'backgrounds/sunrise.jpg' },
-    { url: import.meta.env.BASE_URL + 'backgrounds/sakura.jpg' },
-    { url: import.meta.env.BASE_URL + 'backgrounds/lanterns.jpg' },
-    { url: import.meta.env.BASE_URL + 'backgrounds/bamboo.jpg' },
+    { url: import.meta.env.BASE_URL + 'backgrounds/lotus.webp' },
+    { url: import.meta.env.BASE_URL + 'backgrounds/sunrise.webp' },
+    { url: import.meta.env.BASE_URL + 'backgrounds/sakura.webp' },
+    { url: import.meta.env.BASE_URL + 'backgrounds/lanterns.webp' },
+    { url: import.meta.env.BASE_URL + 'backgrounds/bamboo.webp' },
   ],
 }
 

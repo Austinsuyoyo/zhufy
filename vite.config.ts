@@ -8,16 +8,13 @@ import tailwindcss from 'tailwindcss'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: process.env.GITHUB_REPOSITORY 
-    ? `/${process.env.GITHUB_REPOSITORY.split('/')[1]}/` 
+  base: process.env.GITHUB_REPOSITORY
+    ? `/${process.env.GITHUB_REPOSITORY.split('/')[1]}/`
     : process.env.VITE_BASE_PATH || '/',
-  plugins: [
-    vue(),
-    ...(process.env.NODE_ENV === 'development' ? [vueDevTools()] : []),
-  ],
+  plugins: [vue(), ...(process.env.NODE_ENV === 'development' ? [vueDevTools()] : [])],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
   css: {
@@ -39,6 +36,9 @@ export default defineConfig({
   },
   esbuild: {
     drop: ['console', 'debugger'],
+  },
+  preview: {
+    host: '0.0.0.0',
   },
   build: {
     target: 'es2015',
