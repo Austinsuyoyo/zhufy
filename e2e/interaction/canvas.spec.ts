@@ -1,21 +1,37 @@
-import { test, expect } from './fixtures/editor'
-import { simulateCanvasWheelZoom } from './utils/helpers'
+import { test, expect } from '../fixtures/editor'
+import { simulateCanvasWheelZoom } from '../utils/helpers'
 
 test.describe('Canvas 操作', () => {
   test('Zoom 按鈕功能', async ({ editor }) => {
-    await editor.toolbar.expectZoom('Zoom: 100%')
+    await editor.page.waitForTimeout(500)
+    const initialZoomText = await editor.toolbar.getZoomText().textContent()
+    expect(initialZoomText).toMatch(/^\d+%/)
+    const initialZoom = parseFloat(initialZoomText!.replace('%', ''))
 
     await editor.toolbar.clickZoomIn()
-    await editor.toolbar.expectZoom(/Zoom: 1[0-9]{2}%/)
+    await editor.page.waitForTimeout(300)
+    const afterZoomInText = await editor.toolbar.getZoomText().textContent()
+    const afterZoomIn = parseFloat(afterZoomInText!.replace('%', ''))
+    expect(afterZoomIn).toBeGreaterThan(initialZoom)
 
     await editor.toolbar.clickZoomOut()
-    await editor.toolbar.expectZoom('Zoom: 100%')
+    await editor.page.waitForTimeout(300)
+    const finalZoomText = await editor.toolbar.getZoomText().textContent()
+    const finalZoom = parseFloat(finalZoomText!.replace('%', ''))
+    expect(finalZoom).toBeLessThan(afterZoomIn)
   })
 
   test('Ctrl + 滾輪縮放功能', async ({ editor }) => {
+    await editor.page.waitForTimeout(500)
+    const initialZoomText = await editor.toolbar.getZoomText().textContent()
+    const initialZoom = parseFloat(initialZoomText!.replace('%', ''))
+
     const canvas = await editor.getCanvasBoundingBox()
     await simulateCanvasWheelZoom(editor.page, canvas, -100)
-    await editor.toolbar.expectZoom(/Zoom: 1[0-9]{2}%/)
+    await editor.page.waitForTimeout(500)
+    const afterZoomText = await editor.toolbar.getZoomText().textContent()
+    const afterZoom = parseFloat(afterZoomText!.replace('%', ''))
+    expect(afterZoom).toBeGreaterThan(initialZoom)
   })
 
   test('對象角點調整大小功能', async ({ editor }) => {

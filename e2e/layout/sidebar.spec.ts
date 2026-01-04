@@ -1,4 +1,4 @@
-import { test } from './fixtures/editor'
+import { test } from '../fixtures/editor'
 
 test.describe('側邊欄功能', () => {
   test('切換到背景面板', async ({ editor }) => {
