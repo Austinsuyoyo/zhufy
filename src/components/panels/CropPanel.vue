@@ -24,6 +24,7 @@ import { Crop as CropIcon } from 'lucide-vue-next'
 import * as fabric from 'fabric'
 import { useEditorStore } from '../../stores/editor'
 import { requestRender } from '../../utils/renderManager'
+import { isMobile } from '../../utils/device'
 
 const store = useEditorStore()
 
@@ -58,5 +59,9 @@ const startCrop = () => {
   rect.setCoords()
   requestRender(canvas)
   store.setCropRect(rect)
+
+  if (isMobile()) {
+    store.panelVisible = false
+  }
 }
 </script>

@@ -49,6 +49,7 @@ import * as fabric from 'fabric'
 import { useEditorStore } from '../../stores/editor'
 import { CONFIG } from '../../config/constants'
 import { requestRender } from '../../utils/renderManager'
+import { isMobile } from '../../utils/device'
 
 const store = useEditorStore()
 const fileInputRef = ref<HTMLInputElement>()
@@ -76,6 +77,10 @@ const addEmoji = (emoji: string) => {
   canvas.setActiveObject(text)
   requestRender(canvas)
   store.setActiveObject(text)
+
+  if (isMobile()) {
+    store.panelVisible = false
+  }
 }
 
 const handleStickerUpload = async (e: Event) => {
@@ -105,6 +110,10 @@ const handleStickerUpload = async (e: Event) => {
       canvas.setActiveObject(img)
       requestRender(canvas)
       store.setActiveObject(img)
+
+      if (isMobile()) {
+        store.panelVisible = false
+      }
     } catch (error) {
       console.error('Sticker upload failed', error)
     } finally {

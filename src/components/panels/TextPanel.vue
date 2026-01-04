@@ -323,6 +323,7 @@ import { useEditorStore } from '../../stores/editor'
 import { CONFIG, TEXT_TEMPLATES } from '../../config/constants'
 import { debounce } from '../../utils/debounce'
 import { requestRender } from '../../utils/renderManager'
+import { isMobile } from '../../utils/device'
 import type { IText } from 'fabric'
 
 const store = useEditorStore()
@@ -434,6 +435,10 @@ const addText = (content = '請輸入文字', options: any = {}) => {
   canvas.setActiveObject(text)
   requestRender(canvas)
   store.setActiveObject(text)
+
+  if (isMobile()) {
+    store.panelVisible = false
+  }
 }
 
 const addRandomQuote = () => {

@@ -136,6 +136,7 @@ import { CONFIG } from '../../config/constants'
 import { debounce } from '../../utils/debounce'
 import { requestRender } from '../../utils/renderManager'
 import { loadFabricImage } from '../../utils/fabricImageCache'
+import { isMobile } from '../../utils/device'
 
 const store = useEditorStore()
 const fileInputRef = ref<HTMLInputElement>()
@@ -245,6 +246,10 @@ const loadBackground = async (url: string) => {
 
     await nextTick()
     adjustZoomForBackground(canvas)
+
+    if (isMobile()) {
+      store.panelVisible = false
+    }
   } catch (error) {
     console.error('Failed to load background:', error)
   } finally {
