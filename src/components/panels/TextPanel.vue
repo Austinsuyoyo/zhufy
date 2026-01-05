@@ -148,6 +148,22 @@
                 fillColor
               }}</span>
             </label>
+            <!-- Quick fill color presets -->
+            <div class="flex gap-1 pt-1">
+              <button
+                v-for="color in presetFillColors"
+                :key="'fill-' + color"
+                @click="setFillColor(color)"
+                :style="{ backgroundColor: color }"
+                :class="[
+                  'w-5 h-5 rounded-full border-2 hover:scale-110 transition-transform',
+                  fillColor.toLowerCase() === color.toLowerCase()
+                    ? 'border-blue-500 ring-2 ring-blue-200'
+                    : 'border-white shadow-sm'
+                ]"
+                :aria-label="`選擇文字顏色 ${color}`"
+              />
+            </div>
           </div>
           <div class="space-y-1">
             <span class="text-xs text-gray-600 font-medium">描邊顏色</span>
@@ -165,6 +181,22 @@
                 strokeColor
               }}</span>
             </label>
+            <!-- Quick stroke color presets -->
+            <div class="flex gap-1 pt-1">
+              <button
+                v-for="color in presetStrokeColors"
+                :key="'stroke-' + color"
+                @click="setStrokeColor(color)"
+                :style="{ backgroundColor: color }"
+                :class="[
+                  'w-5 h-5 rounded-full border-2 hover:scale-110 transition-transform',
+                  strokeColor.toLowerCase() === color.toLowerCase()
+                    ? 'border-blue-500 ring-2 ring-blue-200'
+                    : 'border-gray-300 shadow-sm'
+                ]"
+                :aria-label="`選擇描邊顏色 ${color}`"
+              />
+            </div>
           </div>
         </div>
 
@@ -336,6 +368,19 @@ const fillColor = ref('#ff0000')
 const strokeColor = ref('#ffffff')
 const fontFamily = ref('Zen Maru Gothic')
 const isBold = ref(false)
+
+// Preset color palettes
+const presetFillColors = ['#ff0000', '#ff6600', '#ffcc00', '#00cc00', '#0066ff', '#9933ff', '#000000']
+const presetStrokeColors = ['#ffffff', '#000000', '#ffcc00', '#ff6600', '#00cc00', '#0066ff', '#ff0000']
+
+// Quick color setters
+const setFillColor = (color: string) => {
+  fillColor.value = color
+}
+
+const setStrokeColor = (color: string) => {
+  strokeColor.value = color
+}
 
 const isVertical = computed(() => {
   const obj = store.activeObject as IText | null
