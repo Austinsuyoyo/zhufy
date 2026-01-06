@@ -55,26 +55,44 @@ npm run preview
 zhufy/
 ├── src/
 │   ├── components/        # Vue components
-│   │   ├── panels/        # Panel components (Background, Text, Decor, Crop)
+│   │   └── panels/        # Panel components (Background, Text, Decor, Crop)
 │   ├── composables/       # Composition API hooks
+│   ├── config/            # Configuration files
+│   ├── router/            # Vue Router configuration
 │   ├── stores/            # Pinia stores
 │   ├── utils/             # Utility functions
-│   ├── config/            # Configuration files
+│   ├── views/             # Page views
 │   └── style.css          # Global styles
-├── e2e/                   # E2E tests
+├── e2e/                   # Playwright E2E tests
+│   ├── features/          # Feature tests
 │   ├── fixtures/          # Test fixtures
+│   ├── interaction/       # Interaction tests
+│   ├── layout/            # Layout tests
 │   ├── pages/             # Page object models
+│   ├── regression/        # Regression tests
+│   ├── smoke/             # Smoke tests
 │   └── utils/             # Test utilities
-└── public/
-    └── backgrounds/       # Background images
+└── public/                # Static assets
 ```
 
 ## 📝 Development
 
-### Adding Background Images
+### Available Scripts
 
-Place background images in `public/backgrounds/` and configure them in `src/config/constants.ts`:
+```bash
+npm run dev          # Start development server
+npm run build        # Build for production (with type checking)
+npm run preview      # Preview production build
+npm run lint         # ESLint check and fix
+npm run format       # Prettier format code
+npm run type-check   # TypeScript type checking
+```
 
-```typescript
-backgrounds: [{ url: '/backgrounds/your-image.jpg' }]
+### E2E Testing
+
+```bash
+npm run test:e2e         # Run all E2E tests
+npm run test:e2e:ui      # Run tests in UI mode
+npm run test:e2e:headed  # Run tests in headed mode
+npm run test:e2e:debug   # Run tests in debug mode
 ```

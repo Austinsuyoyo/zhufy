@@ -55,26 +55,44 @@ npm run preview
 zhufy/
 ├── src/
 │   ├── components/        # Vue 組件
-│   │   ├── panels/        # 面板組件（背景、文字、裝飾、裁切）
+│   │   └── panels/        # 面板組件（背景、文字、裝飾、裁切）
 │   ├── composables/       # Composition API hooks
+│   ├── config/            # 配置檔案
+│   ├── router/            # Vue Router 路由設定
 │   ├── stores/            # Pinia stores
 │   ├── utils/             # 工具函數
-│   ├── config/            # 配置檔案
+│   ├── views/             # 頁面視圖
 │   └── style.css          # 全域樣式
-├── e2e/                   # E2E 測試
+├── e2e/                   # Playwright E2E 測試
+│   ├── features/          # 功能測試
 │   ├── fixtures/          # 測試 fixtures
+│   ├── interaction/       # 互動測試
+│   ├── layout/            # 佈局測試
 │   ├── pages/             # Page Object Models
+│   ├── regression/        # 回歸測試
+│   ├── smoke/             # 冒煙測試
 │   └── utils/             # 測試工具
-└── public/
-    └── backgrounds/       # 背景圖片
+└── public/                # 靜態資源
 ```
 
 ## 📝 開發說明
 
-### 新增背景圖片
+### 可用腳本
 
-將背景圖片放置在 `public/backgrounds/` 目錄，並在 `src/config/constants.ts` 中配置：
+```bash
+npm run dev          # 啟動開發伺服器
+npm run build        # 建置生產版本（含類型檢查）
+npm run preview      # 預覽生產版本
+npm run lint         # ESLint 檢查並修復
+npm run format       # Prettier 格式化程式碼
+npm run type-check   # TypeScript 類型檢查
+```
 
-```typescript
-backgrounds: [{ url: '/backgrounds/your-image.jpg' }]
+### E2E 測試
+
+```bash
+npm run test:e2e         # 執行所有 E2E 測試
+npm run test:e2e:ui      # 以 UI 模式執行測試
+npm run test:e2e:headed  # 以有頭模式執行測試
+npm run test:e2e:debug   # 以除錯模式執行測試
 ```
