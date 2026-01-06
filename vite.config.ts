@@ -1,11 +1,35 @@
 import { fileURLToPath, URL } from 'node:url'
+import { existsSync, mkdirSync, copyFileSync } from 'node:fs'
+import { resolve } from 'node:path'
 
 import { defineConfig } from 'vite'
+import type { Plugin } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import sitemapPlugin from 'vite-plugin-sitemap'
 import autoprefixer from 'autoprefixer'
 import tailwindcss from 'tailwindcss'
+
+// Plugin to copy index.html to sub-routes for SPA support on GitHub Pages
+function copyIndexToRoutes(routes: string[]): Plugin {
+  return {
+    name: 'copy-index-to-routes',
+    writeBundle(options) {
+      const outDir = options.dir || 'dist'
+      const indexPath = resolve(outDir, 'index.html')
+
+      for (const route of routes) {
+        const routeDir = resolve(outDir, route.replace(/^\//, ''))
+        const routeIndex = resolve(routeDir, 'index.html')
+
+        if (!existsSync(routeDir)) {
+          mkdirSync(routeDir, { recursive: true })
+        }
+        copyFileSync(indexPath, routeIndex)
+      }
+    },
+  }
+}
 
 // https://vite.dev/config/
 const base = process.env.GITHUB_REPOSITORY
@@ -36,6 +60,7 @@ export default defineConfig({
       readable: true,
       generateRobotsTxt: false,
     }),
+    copyIndexToRoutes(['/editor']),
   ],
   resolve: {
     alias: {
