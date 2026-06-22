@@ -8,6 +8,7 @@ body.editor-mode {
   position: fixed;
   width: 100%;
   height: 100%;
+  font-family: 'Zen Maru Gothic', sans-serif;
 }
 
 textarea[name='fabricTextarea'] {
@@ -16,8 +17,11 @@ textarea[name='fabricTextarea'] {
   position: fixed !important;
 }
 
+/* ponytail: landing uses the OS font (no Google Fonts dependency → no render
+   block / font-swap). Editor keeps Zen Maru for its UI; the canvas text tool
+   still pulls all four families via .font-* below. */
 body {
-  font-family: 'Zen Maru Gothic', sans-serif;
+  font-family: system-ui, -apple-system, 'PingFang TC', 'Microsoft JhengHei', sans-serif;
 }
 
 .canvas-container {

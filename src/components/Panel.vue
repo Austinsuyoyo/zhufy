@@ -34,7 +34,7 @@
       <CropPanel v-if="activeTab === 'crop'" />
     </div>
     <div class="border-t border-gray-100 px-6 py-3 hidden md:block">
-      <p class="text-xs text-gray-400 text-center">
+      <p class="text-xs text-gray-500 text-center">
         © 2025
         <a
           href="https://github.com/austinsuyoyo"

@@ -1,251 +1,85 @@
 <template>
-  <div
-    class="min-h-screen relative bg-white flex items-center justify-center px-3 sm:px-4 py-6 sm:py-8 overflow-hidden"
-  >
-    <div class="absolute inset-0 overflow-hidden">
-      <div
-        class="absolute top-0 left-0 right-0 h-24 sm:h-32 bg-gradient-to-b from-slate-200/60 to-transparent"
-      ></div>
-      <div
-        class="absolute bottom-0 left-0 right-0 h-24 sm:h-32 bg-gradient-to-t from-slate-200/60 to-transparent"
-      ></div>
-
-      <div class="absolute top-1/4 left-[10%] w-2 h-2 bg-slate-300 rounded-full opacity-40"></div>
-      <div class="absolute top-1/3 right-[20%] w-3 h-3 bg-slate-300 rounded-full opacity-30"></div>
-      <div
-        class="absolute bottom-1/4 right-[15%] w-2 h-2 bg-slate-300 rounded-full opacity-40"
-      ></div>
-      <div
-        class="absolute bottom-1/3 left-[25%] w-4 h-4 bg-slate-200 rounded-full opacity-30"
-      ></div>
-      <div
-        class="absolute top-1/2 right-[30%] w-2 h-2 bg-slate-300 rounded-full opacity-50 hidden sm:block"
-      ></div>
-
-      <div
-        class="absolute -top-20 sm:-top-40 -left-20 sm:-left-40 w-40 sm:w-80 h-40 sm:h-80 bg-blue-50 rounded-full blur-3xl opacity-20"
-      ></div>
-      <div
-        class="absolute -bottom-20 sm:-bottom-40 -right-20 sm:-right-40 w-40 sm:w-80 h-40 sm:h-80 bg-slate-100 rounded-full blur-3xl opacity-30"
-      ></div>
+  <div class="lp">
+    <div class="bgfx" aria-hidden="true">
+      <div class="aurora"></div>
+      <div class="grid"></div>
     </div>
 
-    <div class="w-full max-w-6xl relative z-10">
-      <div class="text-center mb-8 sm:mb-12">
-        <h1
-          class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-3 sm:mb-4"
-        >
-          送祝福，就這麼簡單
-        </h1>
-        <p class="text-base sm:text-lg text-slate-600 mb-6 sm:mb-8 px-2">
-          選圖 → 打字 → 下載，早安圖晚安圖隨你做
-        </p>
+    <div class="wrap">
+      <nav class="nav">
+        <div class="logo"><span class="dot"></span>Zhufy</div>
+        <router-link to="/editor" class="nav-cta">開始製作</router-link>
+      </nav>
 
-        <router-link
-          to="/editor"
-          class="inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-4 bg-slate-900 text-white rounded-full hover:bg-slate-800 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 group"
-        >
-          <span class="text-base sm:text-lg font-semibold">開始製作</span>
-          <svg
-            class="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M13 7l5 5m0 0l-5 5m5-5H6"
-            />
-          </svg>
-        </router-link>
-      </div>
-
-      <div
-        class="flex flex-col lg:flex-row items-center lg:items-end justify-center gap-6 sm:gap-8 lg:gap-12"
-      >
-        <div class="w-full lg:flex-1 order-2 lg:order-1 hidden sm:block">
-          <div class="mb-4 sm:mb-6 flex items-center justify-center gap-2">
-            <svg
-              class="w-5 sm:w-6 h-5 sm:h-6 text-slate-600"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <rect
-                x="2"
-                y="3"
-                width="20"
-                height="14"
-                rx="2"
-                ry="2"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <line
-                x1="8"
-                y1="21"
-                x2="16"
-                y2="21"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <line
-                x1="12"
-                y1="17"
-                x2="12"
-                y2="21"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-            <span class="text-lg sm:text-xl font-semibold text-slate-900">桌面版</span>
-          </div>
-          <div class="relative group">
-            <div
-              class="absolute -inset-1 bg-gradient-to-r from-blue-100 to-slate-100 rounded-2xl sm:rounded-3xl opacity-60 group-hover:opacity-100 blur-lg transition duration-500"
-            ></div>
-            <div
-              class="relative bg-white rounded-2xl sm:rounded-3xl p-1.5 sm:p-2 shadow-lg hover:shadow-xl transition-all duration-300"
-            >
-              <div class="rounded-xl sm:rounded-2xl overflow-hidden">
-                <img
-                  :src="`${baseUrl}showcase/desktop.webp`"
-                  alt="Desktop view"
-                  class="w-full h-auto"
-                />
-              </div>
-            </div>
-          </div>
+      <main>
+      <section class="hero">
+        <div class="pill"><span class="g"></span>免費 · 免註冊 · 開啟即用</div>
+        <h1>把祝福，<span class="grad">做得更好看</span></h1>
+        <p class="sub">選一張底圖，寫上想說的話，秒速下載。<br />早安圖、晚安圖，從此不再俗氣。</p>
+        <div class="btns">
+          <router-link to="/editor" class="primary">開始製作 →</router-link>
+          <a href="#preview" class="ghost">看看範例</a>
         </div>
+        <p class="trust">圖片只在你的瀏覽器處理，不會上傳</p>
+      </section>
 
-        <div class="w-full sm:w-auto order-1 lg:order-2">
-          <div class="mb-4 sm:mb-6 flex items-center justify-center gap-2">
-            <svg
-              class="w-5 sm:w-6 h-5 sm:h-6 text-slate-600"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <rect
-                x="5"
-                y="2"
-                width="14"
-                height="20"
-                rx="2"
-                ry="2"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <line
-                x1="12"
-                y1="18"
-                x2="12.01"
-                y2="18"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-            <span class="text-lg sm:text-xl font-semibold text-slate-900">移動版</span>
+      <section id="preview" class="show">
+        <div class="halo" aria-hidden="true"></div>
+        <div class="browser">
+          <div class="bar" aria-hidden="true">
+            <i></i><i></i><i></i><span class="url">zhufy.app/editor</span>
           </div>
-          <div class="relative group max-w-[200px] sm:max-w-[300px] mx-auto">
-            <div
-              class="absolute -inset-1 bg-gradient-to-r from-slate-100 to-blue-100 rounded-[2rem] sm:rounded-[2.5rem] opacity-60 group-hover:opacity-100 blur-lg transition duration-500"
-            ></div>
-            <div
-              class="relative bg-white rounded-[2rem] sm:rounded-[2.5rem] p-1.5 sm:p-2 shadow-lg hover:shadow-xl transition-all duration-300"
-            >
-              <div class="rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden">
-                <img
-                  :src="`${baseUrl}showcase/mobile.webp`"
-                  alt="Mobile view"
-                  class="w-full h-auto"
-                />
-              </div>
-            </div>
-          </div>
+          <img
+            :src="`${baseUrl}showcase/desktop.webp`"
+            alt="Zhufy 編輯器桌面版畫面"
+            width="1200"
+            height="826"
+          />
         </div>
-      </div>
+        <div class="phone">
+          <img
+            :src="`${baseUrl}showcase/mobile.webp`"
+            alt="Zhufy 編輯器手機版畫面"
+            width="720"
+            height="1357"
+          />
+        </div>
+      </section>
 
-      <div class="mt-10 sm:mt-16 grid grid-cols-3 gap-2 sm:gap-6">
-        <div
-          class="bg-white rounded-xl sm:rounded-2xl p-3 sm:p-6 text-center hover:shadow-lg transition-all duration-300 border border-transparent hover:border-slate-200"
-        >
-          <div
-            class="w-10 sm:w-14 h-10 sm:h-14 bg-gradient-to-br from-slate-900 to-slate-700 rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-2 sm:mb-4 shadow-md"
-          >
-            <svg
-              class="w-5 sm:w-7 h-5 sm:h-7 text-white"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M13 10V3L4 14h7v7l9-11h-7z"
-              />
+      <section class="feats">
+        <article class="card">
+          <div class="ic">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M13 2 4 14h7l-1 8 9-12h-7z" />
             </svg>
           </div>
-          <h3 class="text-slate-900 mb-1 sm:mb-2 text-sm sm:text-base">極速載入</h3>
-          <p class="text-slate-600 text-xs sm:text-sm hidden sm:block">優化效能，瞬間啟動</p>
-        </div>
-
-        <div
-          class="bg-white rounded-xl sm:rounded-2xl p-3 sm:p-6 text-center hover:shadow-lg transition-all duration-300 border border-transparent hover:border-slate-200"
-        >
-          <div
-            class="w-10 sm:w-14 h-10 sm:h-14 bg-gradient-to-br from-slate-900 to-slate-700 rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-2 sm:mb-4 shadow-md"
-          >
-            <svg
-              class="w-5 sm:w-7 h-5 sm:h-7 text-white"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M4 5a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 16a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1H5a1 1 0 01-1-1v-3zM14 16a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1h-4a1 1 0 01-1-1v-3z"
-              />
+          <h2>開了就能用</h2>
+          <p>純前端、零等待。靈感一來，馬上開工。</p>
+        </article>
+        <article class="card">
+          <div class="ic">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <rect x="5" y="2" width="14" height="20" rx="2.5" />
+              <line x1="11" y1="18" x2="13" y2="18" />
             </svg>
           </div>
-          <h3 class="text-slate-900 mb-1 sm:mb-2 text-sm sm:text-base">靈活佈局</h3>
-          <p class="text-slate-600 text-xs sm:text-sm hidden sm:block">自動適應各種螢幕</p>
-        </div>
-
-        <div
-          class="bg-white rounded-xl sm:rounded-2xl p-3 sm:p-6 text-center hover:shadow-lg transition-all duration-300 border border-transparent hover:border-slate-200"
-        >
-          <div
-            class="w-10 sm:w-14 h-10 sm:h-14 bg-gradient-to-br from-slate-900 to-slate-700 rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-2 sm:mb-4 shadow-md"
-          >
-            <svg
-              class="w-5 sm:w-7 h-5 sm:h-7 text-white"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
-              />
+          <h2>桌機手機都順</h2>
+          <p>同一套介面自動適應，手機也能細修。</p>
+        </article>
+        <article class="card">
+          <div class="ic">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z" />
             </svg>
           </div>
-          <h3 class="text-slate-900 mb-1 sm:mb-2 text-sm sm:text-base">精美設計</h3>
-          <p class="text-slate-600 text-xs sm:text-sm hidden sm:block">現代化視覺體驗</p>
-        </div>
-      </div>
+          <h2>底圖字型都備好</h2>
+          <p>內建質感素材，不必自己找圖配字。</p>
+        </article>
+      </section>
+      </main>
     </div>
   </div>
 </template>
@@ -257,3 +91,385 @@ defineOptions({
   name: 'LandingPage',
 })
 </script>
+
+<style scoped>
+.lp {
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: #fbfbfd;
+  color: #14171f;
+  font-family: 'Noto Sans TC', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* dawn aurora glow + faint grid (pure CSS, ties to the morning-greeting theme) */
+.bgfx {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+.aurora {
+  position: absolute;
+  top: -260px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1200px;
+  max-width: 140vw;
+  height: 640px;
+  background:
+    radial-gradient(44% 60% at 36% 42%, rgba(240, 152, 42, 0.22), rgba(240, 152, 42, 0) 70%),
+    radial-gradient(44% 56% at 66% 46%, rgba(251, 111, 132, 0.2), rgba(251, 111, 132, 0) 70%),
+    radial-gradient(40% 50% at 52% 62%, rgba(139, 107, 255, 0.13), rgba(139, 107, 255, 0) 72%);
+  filter: blur(16px);
+}
+.grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(18, 23, 40, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(18, 23, 40, 0.04) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(68% 52% at 50% 26%, #000 0%, transparent 76%);
+  mask-image: radial-gradient(68% 52% at 50% 26%, #000 0%, transparent 76%);
+}
+
+.wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 0;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+}
+.logo .dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 7px;
+  background: linear-gradient(135deg, #f0982a, #fb6f84);
+  box-shadow: 0 4px 14px rgba(251, 111, 132, 0.4);
+}
+.nav-cta {
+  font-size: 14px;
+  font-weight: 600;
+  color: #14171f;
+  text-decoration: none;
+  border: 1px solid rgba(18, 23, 40, 0.09);
+  padding: 8px 16px;
+  border-radius: 9px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(18, 23, 40, 0.04);
+}
+
+.hero {
+  text-align: center;
+  padding: 68px 0 52px;
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #5a6472;
+  font-weight: 500;
+  border: 1px solid rgba(18, 23, 40, 0.09);
+  background: #fff;
+  padding: 6px 14px;
+  border-radius: 999px;
+  margin-bottom: 30px;
+  box-shadow: 0 1px 2px rgba(18, 23, 40, 0.04);
+}
+.pill .g {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #f0982a;
+  box-shadow: 0 0 8px #f0982a;
+}
+h1 {
+  font-weight: 900;
+  font-size: 66px;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+h1 .grad {
+  background: linear-gradient(100deg, #f0982a, #fb6f84);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  white-space: nowrap;
+}
+.sub {
+  color: #5a6472;
+  font-size: 18.5px;
+  line-height: 1.75;
+  max-width: 520px;
+  margin: 24px auto 38px;
+  font-weight: 500;
+}
+.btns {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  align-items: center;
+}
+.primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-weight: 700;
+  font-size: 16px;
+  color: #fff;
+  text-decoration: none;
+  background: linear-gradient(135deg, #f8a93c, #fb6f84);
+  padding: 15px 30px;
+  border-radius: 12px;
+  box-shadow:
+    0 12px 32px -8px rgba(251, 111, 132, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transition: transform 0.2s ease;
+}
+.ghost {
+  font-weight: 600;
+  font-size: 16px;
+  color: #14171f;
+  text-decoration: none;
+  border: 1px solid rgba(18, 23, 40, 0.09);
+  background: #fff;
+  padding: 15px 24px;
+  border-radius: 12px;
+  box-shadow: 0 1px 2px rgba(18, 23, 40, 0.04);
+  transition: transform 0.2s ease;
+}
+.trust {
+  margin-top: 20px;
+  font-size: 13px;
+  color: #8b93a1;
+  letter-spacing: 0.03em;
+}
+
+.show {
+  position: relative;
+  margin: 30px auto 0;
+  max-width: 920px;
+  scroll-margin-top: 24px;
+}
+.halo {
+  position: absolute;
+  left: 50%;
+  top: 18%;
+  transform: translateX(-50%);
+  width: 780px;
+  max-width: 120%;
+  height: 300px;
+  background: radial-gradient(
+    50% 60% at 50% 50%,
+    rgba(248, 169, 60, 0.28),
+    rgba(251, 111, 132, 0.16) 55%,
+    transparent 75%
+  );
+  filter: blur(30px);
+  z-index: 0;
+}
+.browser {
+  position: relative;
+  z-index: 1;
+  background: #fff;
+  border: 1px solid rgba(18, 23, 40, 0.09);
+  border-radius: 16px;
+  box-shadow:
+    0 40px 90px -30px rgba(34, 30, 60, 0.3),
+    0 8px 24px -12px rgba(34, 30, 60, 0.18);
+  overflow: hidden;
+}
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 13px 16px;
+  border-bottom: 1px solid rgba(18, 23, 40, 0.09);
+  background: #fcfcfe;
+}
+.bar i {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #e2e5ec;
+}
+.bar .url {
+  margin-left: 14px;
+  font-size: 12px;
+  color: #5a6472;
+  background: #f2f3f7;
+  padding: 4px 14px;
+  border-radius: 7px;
+}
+.browser img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.phone {
+  display: none;
+}
+
+.feats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  padding: 84px 0 90px;
+}
+.card {
+  position: relative;
+  background: #fff;
+  border: 1px solid rgba(18, 23, 40, 0.09);
+  border-radius: 16px;
+  padding: 26px 24px;
+  box-shadow:
+    0 2px 4px rgba(18, 23, 40, 0.03),
+    0 14px 30px -18px rgba(18, 23, 40, 0.12);
+}
+.card::before {
+  content: '';
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  top: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(248, 169, 60, 0.7),
+    rgba(251, 111, 132, 0.5),
+    transparent
+  );
+}
+.card .ic {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(248, 169, 60, 0.16), rgba(251, 111, 132, 0.12));
+  border: 1px solid rgba(18, 23, 40, 0.09);
+  color: #d97a1e;
+  margin-bottom: 16px;
+}
+.card .ic svg {
+  width: 20px;
+  height: 20px;
+}
+.card h2 {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 7px;
+}
+.card p {
+  font-size: 14px;
+  color: #5a6472;
+  line-height: 1.7;
+}
+
+@media (hover: hover) {
+  .primary:hover,
+  .ghost:hover {
+    transform: translateY(-2px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .primary,
+  .ghost {
+    transition: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .wrap {
+    padding: 0 20px;
+  }
+  .nav {
+    padding: 18px 0;
+  }
+  .hero {
+    padding: 44px 0 36px;
+  }
+  .pill {
+    font-size: 11.5px;
+    padding: 6px 12px;
+    margin-bottom: 22px;
+  }
+  h1 {
+    font-size: 40px;
+    line-height: 1.16;
+  }
+  .sub {
+    font-size: 16px;
+    margin: 18px auto 28px;
+  }
+  .sub br {
+    display: none;
+  }
+  .btns {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 11px;
+  }
+  .primary,
+  .ghost {
+    justify-content: center;
+    width: 100%;
+  }
+  .browser {
+    display: none;
+  }
+  .show {
+    margin-top: 24px;
+  }
+  .halo {
+    top: 6%;
+    width: 120%;
+    height: 60%;
+  }
+  .phone {
+    display: block;
+    position: relative;
+    z-index: 1;
+    width: 236px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 7px;
+    border: 1px solid rgba(18, 23, 40, 0.09);
+    border-radius: 30px;
+    box-shadow: 0 30px 70px -24px rgba(34, 30, 60, 0.32);
+  }
+  .phone img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 24px;
+  }
+  .feats {
+    grid-template-columns: 1fr;
+    gap: 13px;
+    padding: 60px 0 68px;
+  }
+}
+</style>

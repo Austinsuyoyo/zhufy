@@ -1,6 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Editor from '@/components/Editor.vue'
 import Landing from '@/views/Landing.vue'
+
+// Lazy-loaded: the editor pulls in Fabric.js (~95 KB gzip). Keeping it out of
+// the entry chunk means the landing page no longer downloads Fabric up front.
+const Editor = () => import('@/components/Editor.vue')
 
 if (typeof window !== 'undefined') {
   const params = new URLSearchParams(window.location.search)

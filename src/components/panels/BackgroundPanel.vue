@@ -133,7 +133,7 @@ import { Shuffle, Upload, Loader2 } from 'lucide-vue-next'
 import * as fabric from 'fabric'
 import { useEditorStore } from '../../stores/editor'
 import { CONFIG } from '../../config/constants'
-import { debounce } from '../../utils/debounce'
+import { createFilterScheduler } from '../../utils/filterScheduler'
 import { requestRender } from '../../utils/renderManager'
 import { loadFabricImage } from '../../utils/fabricImageCache'
 import { isMobile } from '../../utils/device'
@@ -159,7 +159,7 @@ const getBackgroundAlt = (url: string) => {
   return nameMap[name] || `背景圖片：${name}`
 }
 
-const applyFilter = debounce((type: 'blur' | 'brightness' | 'contrast', value: number) => {
+const applyFilter = createFilterScheduler((type, value) => {
   const img = store.canvas?.backgroundImage as fabric.Image
   if (!img || !img.filters) return
 

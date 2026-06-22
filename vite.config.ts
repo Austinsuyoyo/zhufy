@@ -71,16 +71,9 @@ export default defineConfig({
     postcss: {
       plugins: [
         tailwindcss(),
-        autoprefixer({
-          overrideBrowserslist: [
-            'Android 4.1',
-            'iOS 7.1',
-            'Chrome > 31',
-            'ff > 31',
-            'ie >= 8',
-            'last 2 versions',
-          ],
-        }),
+        // ponytail: default browserslist (modern). Vue 3 + Fabric 7 can't run on
+        // ie8 / Android 4.1 anyway, so prefixing for them was dead CSS.
+        autoprefixer(),
       ],
     },
   },
@@ -91,7 +84,7 @@ export default defineConfig({
     host: '0.0.0.0',
   },
   build: {
-    target: 'es2015',
+    target: 'es2020',
     minify: 'esbuild',
     cssMinify: true,
     chunkSizeWarningLimit: 1000,

@@ -37,3 +37,9 @@ __screenshots__/
 
 test-results/
 playwright-report/
+
+# Lighthouse reports
+lighthouse-reports/
+
+# stray chrome-launcher temp dirs (WSL quirk)
+*wsl.localhost*
