@@ -43,3 +43,6 @@ lighthouse-reports/
 
 # stray chrome-launcher temp dirs (WSL quirk)
 *wsl.localhost*
+
+# convergent-improvement-loop campaign docs (untracked by design)
+docs/test-gap-*

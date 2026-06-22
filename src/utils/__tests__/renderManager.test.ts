@@ -57,4 +57,17 @@ describe('requestRender batching (renderManager)', () => {
 
     expect(canvas.requestRenderAll).toHaveBeenCalledTimes(2)
   })
+
+  // forceRender must paint now and cancel the pending frame (no double paint).
+  test('forceRender paints immediately and clears the queued frame', async () => {
+    const { requestRender, forceRender } = await import('../renderManager')
+    const canvas = { requestRenderAll: vi.fn() }
+
+    requestRender(canvas) // schedule a frame
+    forceRender(canvas) // paint right away, cancel the scheduled one
+    expect(canvas.requestRenderAll).toHaveBeenCalledTimes(1)
+
+    flushFrame()
+    expect(canvas.requestRenderAll).toHaveBeenCalledTimes(1)
+  })
 })

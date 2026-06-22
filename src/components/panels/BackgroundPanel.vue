@@ -128,12 +128,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, nextTick } from 'vue'
+import { ref, watch, nextTick, onMounted } from 'vue'
 import { Shuffle, Upload, Loader2 } from 'lucide-vue-next'
 import * as fabric from 'fabric'
 import { useEditorStore } from '../../stores/editor'
 import { CONFIG } from '../../config/constants'
-import { createFilterScheduler } from '../../utils/filterScheduler'
+import { createFilterScheduler, readBackgroundFilters } from '../../utils/filterScheduler'
 import { requestRender } from '../../utils/renderManager'
 import { loadFabricImage } from '../../utils/fabricImageCache'
 import { isMobile } from '../../utils/device'
@@ -194,6 +194,16 @@ const applyFilter = createFilterScheduler((type, value) => {
 watch(blurValue, (val) => applyFilter('blur', val))
 watch(brightnessValue, (val) => applyFilter('brightness', val))
 watch(contrastValue, (val) => applyFilter('contrast', val))
+
+// The panel unmounts on tab switch (v-if), so re-sync the sliders to the
+// filters still live on the background image — otherwise they'd reset to 0%
+// while the image stays filtered.
+onMounted(() => {
+  const values = readBackgroundFilters(store.canvas?.backgroundImage)
+  blurValue.value = values.blur
+  brightnessValue.value = values.brightness
+  contrastValue.value = values.contrast
+})
 
 const adjustZoomForBackground = (canvas: any) => {
   if (!canvas) return

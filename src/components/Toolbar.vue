@@ -66,7 +66,7 @@
     <ConfirmModal
       :visible="showResetModal"
       title="確認重置"
-      message="確定要清除所有文字和裝飾嗎？背景將保留。"
+      message="將清除所有文字與裝飾，並把圖片還原成裁切、濾鏡前的原始樣子（背景照片保留）。"
       confirm-text="確認重置"
       cancel-text="取消"
       @confirm="confirmReset"
@@ -78,9 +78,9 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import { Sparkles, RefreshCw, Download, ChevronDown, Github } from 'lucide-vue-next'
-import * as fabric from 'fabric'
 import { useEditorStore } from '../stores/editor'
-import { requestRender } from '../utils/renderManager'
+import { forceRender } from '../utils/renderManager'
+import { resetCanvas } from '../utils/canvasReset'
 import ConfirmModal from './ConfirmModal.vue'
 
 defineOptions({
@@ -105,14 +105,8 @@ const confirmReset = () => {
   const canvas = store.canvas
   if (!canvas) return
 
-  const objects = canvas.getObjects()
-  objects.forEach((obj: fabric.Object) => {
-    if (obj.type !== 'rect' || obj !== store.cropRect) {
-      canvas.remove(obj)
-    }
-  })
-  canvas.discardActiveObject()
-  requestRender(canvas)
+  resetCanvas(canvas, store.cropRect)
+  forceRender(canvas)
 }
 
 const downloadWithResolution = (multiplier: number) => {
