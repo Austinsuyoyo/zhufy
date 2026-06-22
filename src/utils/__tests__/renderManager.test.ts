@@ -71,3 +71,23 @@ describe('requestRender batching (renderManager)', () => {
     expect(canvas.requestRenderAll).toHaveBeenCalledTimes(1)
   })
 })
+
+describe('renderManager guards', () => {
+  test('requestRender(null) is a no-op — schedules no frame', async () => {
+    const { requestRender } = await import('../renderManager')
+    requestRender(null)
+    expect(rafQueue).toHaveLength(0)
+  })
+
+  test('forceRender(null) is a no-op and does not throw', async () => {
+    const { forceRender } = await import('../renderManager')
+    expect(() => forceRender(null)).not.toThrow()
+  })
+
+  test('forceRender with no frame queued paints immediately', async () => {
+    const { forceRender } = await import('../renderManager')
+    const canvas = { requestRenderAll: vi.fn() }
+    forceRender(canvas)
+    expect(canvas.requestRenderAll).toHaveBeenCalledTimes(1)
+  })
+})
