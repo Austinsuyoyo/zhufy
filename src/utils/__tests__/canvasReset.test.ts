@@ -80,4 +80,47 @@ describe('resetCanvas', () => {
     expect(bare.getObjects()).toHaveLength(0)
     expect(bare.setDimensions).not.toHaveBeenCalled()
   })
+
+  test('skips the filter-clear path when there are no filters', () => {
+    const bg = { ...croppedBg(), filters: [] as unknown[] }
+    bg.applyFilters = vi.fn()
+    resetCanvas(makeCanvas([], bg))
+    expect(bg.applyFilters).not.toHaveBeenCalled()
+    expect(bg.left).toBe(0)
+  })
+
+  test('tolerates a background missing optional methods', () => {
+    // filters present but no applyFilters/set/setCoords; canvas has no discardActiveObject
+    const bg: Record<string, unknown> = {
+      width: 600,
+      height: 400,
+      scaleX: 1,
+      scaleY: 1,
+      filters: [{ blur: 0.4 }],
+    }
+    const canvas = {
+      backgroundImage: bg,
+      setDimensions: vi.fn(),
+      getObjects: () => [] as unknown[],
+      remove: vi.fn(),
+    }
+    expect(() => resetCanvas(canvas)).not.toThrow()
+    expect(bg.filters).toEqual([])
+    expect(canvas.setDimensions).toHaveBeenCalledWith({ width: 600, height: 400 })
+  })
+
+  test('does not resize when the background size is missing/zero', () => {
+    const bg = {
+      width: undefined,
+      height: undefined,
+      scaleX: 1,
+      scaleY: 1,
+      filters: [] as unknown[],
+      set: vi.fn(),
+      setCoords: vi.fn(),
+    }
+    const canvas = makeCanvas([], bg)
+    resetCanvas(canvas)
+    expect(canvas.setDimensions).not.toHaveBeenCalled()
+  })
 })
