@@ -14,8 +14,12 @@ import Toolbar from './Toolbar.vue'
 import Sidebar from './Sidebar.vue'
 import CanvasEditor from './CanvasEditor.vue'
 import Panel from './Panel.vue'
+import { ensureEditorFonts } from '../utils/editorFonts'
 
 defineOptions({
   name: 'EditorView',
 })
+
+// Editor-only fonts: kick off the download as soon as the editor route mounts.
+ensureEditorFonts()
 </script>

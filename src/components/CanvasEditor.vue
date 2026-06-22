@@ -100,6 +100,7 @@ import { useCanvas } from '../composables/useCanvas'
 import { CONFIG } from '../config/constants'
 import { requestRender, forceRender } from '../utils/renderManager'
 import { loadFabricImage } from '../utils/fabricImageCache'
+import { whenEditorFontsReady } from '../utils/editorFonts'
 
 const store = useEditorStore()
 const { canvas, initCanvas: initCanvasComposable } = useCanvas('c')
@@ -167,6 +168,10 @@ const initCanvasData = async () => {
     currentCanvas.add(text)
     currentCanvas.setActiveObject(text)
     requestRender(currentCanvas)
+
+    // Fonts load lazily (editorFonts) — re-render once ready so the canvas text
+    // isn't left in the fallback face.
+    whenEditorFontsReady().then(() => forceRender(currentCanvas))
 
     await nextTick()
     adjustZoomForBackground(currentCanvas)
