@@ -1,8 +1,11 @@
-import { describe, test, expect, beforeEach } from 'vitest'
+import { describe, test, expect, beforeEach, afterEach } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
 import { useEditorStore } from '../editor'
 
 beforeEach(() => setActivePinia(createPinia()))
+afterEach(() => {
+  delete (globalThis as { window?: unknown }).window
+})
 
 describe('editor store', () => {
   test('setZoom clamps to [0.1, 3]', () => {
@@ -46,5 +49,27 @@ describe('editor store', () => {
 
     s.setActiveObject(null)
     expect(s.isTextSelected).toBe(false)
+  })
+
+  test('panelVisible defaults open on desktop widths (window-init branch)', () => {
+    ;(globalThis as { window?: unknown }).window = { innerWidth: 1024 }
+    setActivePinia(createPinia())
+    expect(useEditorStore().panelVisible).toBe(true)
+  })
+
+  test('setCanvas / setCropRect / setCurrentBgUrl update their refs', () => {
+    const s = useEditorStore()
+    const canvas = {} as never
+    s.setCanvas(canvas)
+    expect(s.canvas).toBe(canvas)
+
+    const rect = {} as never
+    s.setCropRect(rect)
+    expect(s.cropRect).toBe(rect)
+
+    s.setCurrentBgUrl('lotus.webp')
+    expect(s.currentBgUrl).toBe('lotus.webp')
+    s.setCurrentBgUrl(null)
+    expect(s.currentBgUrl).toBe(null)
   })
 })
