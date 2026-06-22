@@ -1,17 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Landing from '@/views/Landing.vue'
+import { resolveSpaRedirect, isEditorPath } from '@/utils/routing'
 
 // Lazy-loaded: the editor pulls in Fabric.js (~95 KB gzip). Keeping it out of
 // the entry chunk means the landing page no longer downloads Fabric up front.
 const Editor = () => import('@/components/Editor.vue')
 
 if (typeof window !== 'undefined') {
-  const params = new URLSearchParams(window.location.search)
-  const redirectPath = params.get('p')
-  if (redirectPath) {
-    const base = import.meta.env.BASE_URL.replace(/\/$/, '')
-    window.history.replaceState(null, '', base + decodeURIComponent(redirectPath))
-  }
+  const target = resolveSpaRedirect(window.location.search, import.meta.env.BASE_URL)
+  if (target) window.history.replaceState(null, '', target)
 }
 
 const router = createRouter({
@@ -39,12 +36,7 @@ router.beforeEach((to) => {
 })
 
 if (typeof document !== 'undefined') {
-  const base = import.meta.env.BASE_URL
-  const normalizedBase = base === '/' ? '' : base.replace(/\/$/, '')
-  const editorPath = `${normalizedBase}/editor`
-  const initialPath = window.location.pathname
-
-  if (initialPath === editorPath || initialPath.startsWith(`${editorPath}/`)) {
+  if (isEditorPath(window.location.pathname, import.meta.env.BASE_URL)) {
     document.body.classList.add('editor-mode')
   } else {
     document.body.classList.remove('editor-mode')
