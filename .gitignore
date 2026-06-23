@@ -46,3 +46,4 @@ lighthouse-reports/
 
 # convergent-improvement-loop campaign docs (untracked by design)
 docs/test-gap-*
+playwright/.cache/
