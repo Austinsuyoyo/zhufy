@@ -90,5 +90,12 @@ export default defineConfig({
     command: process.env.CI ? 'npm run preview' : 'npm run dev',
     port: process.env.CI ? 4173 : 5173,
     reuseExistingServer: !process.env.CI,
+    /**
+     * The app's production base is `/zhufy/` (GitHub Pages), but the specs
+     * `goto('/editor')` from the root, so serve the app at base `/` for tests.
+     * (For CI/preview mode, build with `VITE_BASE_PATH=/ npm run build-only` so
+     * the dist base matches.)
+     */
+    env: { VITE_BASE_PATH: '/' },
   },
 })
