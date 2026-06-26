@@ -36,7 +36,7 @@ const base = process.env.GITHUB_REPOSITORY
   ? `/${process.env.GITHUB_REPOSITORY.split('/')[1]}/`
   : process.env.VITE_BASE_PATH || '/zhufy/'
 
-const hostname = 'https://www.austinsuyoyo.com'
+const hostname = 'https://zhufy.austinsuyoyo.com'
 const basePath = base === '/' ? '' : base.replace(/\/$/, '')
 
 export default defineConfig({
