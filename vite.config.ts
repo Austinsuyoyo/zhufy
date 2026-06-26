@@ -47,7 +47,8 @@ export default defineConfig({
     sitemapPlugin({
       hostname,
       basePath,
-      dynamicRoutes: ['/editor'],
+      // /editor is already picked up from its generated index.html (copyIndexToRoutes);
+      // listing it in dynamicRoutes too caused a duplicate entry.
       exclude: ['/404'],
       changefreq: {
         '/': 'weekly',
