@@ -32,9 +32,9 @@ function copyIndexToRoutes(routes: string[]): Plugin {
 }
 
 // https://vite.dev/config/
-const base = process.env.GITHUB_REPOSITORY
-  ? `/${process.env.GITHUB_REPOSITORY.split('/')[1]}/`
-  : process.env.VITE_BASE_PATH || '/zhufy/'
+// Lives at the root of its own subdomain (zhufy.austinsuyoyo.com), so base is "/".
+// (Was "/zhufy/" back when it sat under www.austinsuyoyo.com/zhufy/ on GitHub Pages.)
+const base = process.env.VITE_BASE_PATH || '/'
 
 const hostname = 'https://zhufy.austinsuyoyo.com'
 const basePath = base === '/' ? '' : base.replace(/\/$/, '')

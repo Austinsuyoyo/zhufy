@@ -16,13 +16,9 @@ jobs:
           node-version: '22'
           cache: npm
       - run: npm ci
-      # base must be "/" for the subdomain. vite.config forces "/zhufy/" when
-      # GITHUB_REPOSITORY is set, so blank it here and pass VITE_BASE_PATH=/.
+      # base defaults to "/" in vite.config now (subdomain root), no env needed.
       - name: Build
         run: npm run build-only
-        env:
-          GITHUB_REPOSITORY: ""
-          VITE_BASE_PATH: "/"
       - name: SPA fallback (vue-router history mode)
         run: printf '/* /index.html 200\n' > dist/_redirects
       - name: Deploy
